@@ -67,11 +67,17 @@ dependencies {
 
     implementation(Dependencies.Coroutines.CORE)
     implementation(Dependencies.Coroutines.ANDROID)
+
     implementation(Dependencies.Retrofit.MAIN)
     implementation(Dependencies.Retrofit.CONVERTER_MOSHI)
+
+    kapt(Dependencies.Room.COMPILER)
     implementation(Dependencies.Room.RUNTIME)
     implementation(Dependencies.Room.KTX)
-    kapt(Dependencies.Room.COMPILER)
+
+    implementation(Dependencies.Obfuscation.SQL_CIPHER)
+    implementation(Dependencies.Obfuscation.SQLITE_KTX)
+
     api(Dependencies.Lifecycle.LIVEDATA_KTX)
     api(Dependencies.Paging.RUNTIME)
 

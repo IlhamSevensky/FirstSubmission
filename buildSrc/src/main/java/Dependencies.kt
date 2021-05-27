@@ -24,10 +24,17 @@ object Dependencies {
         const val RETROFIT = "2.9.0"
         const val COROUTINES = "1.3.9"
         const val LEAK_CANARY = "2.7"
+        const val SQL_CIPHER = "4.4.3"
+        const val SQLITE_KTX = "2.1.0"
     }
 
     object PerformanceTest {
         const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY}"
+    }
+
+    object Obfuscation {
+        const val SQL_CIPHER = "net.zetetic:android-database-sqlcipher:${Version.SQL_CIPHER}"
+        const val SQLITE_KTX = "androidx.sqlite:sqlite-ktx:${Version.SQLITE_KTX}"
     }
 
     object AndroidX {

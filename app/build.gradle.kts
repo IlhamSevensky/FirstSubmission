@@ -62,6 +62,9 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(Dependencies.KOTLIN_STANDARD_LIBRARY)
 
+    // Leak Canary
+    debugImplementation(Dependencies.PerformanceTest.LEAK_CANARY)
+
     /**
      * This is just workaround instead change 'implementation' to 'api' each dependency without exposes library from core module
      * because there is a bug in the dagger at the following link.
@@ -72,12 +75,12 @@ dependencies {
     implementation(Dependencies.Retrofit.MAIN)
     implementation(Dependencies.Retrofit.CONVERTER_MOSHI)
 
+    // SQL Cipher
+    implementation(Dependencies.Obfuscation.SQL_CIPHER)
+
     // Room
     implementation(Dependencies.Room.RUNTIME)
     implementation(Dependencies.Room.KTX)
     kapt(Dependencies.Room.COMPILER)
-
-    // Leak Canary
-    debugImplementation(Dependencies.PerformanceTest.LEAK_CANARY)
 
 }

@@ -3,6 +3,7 @@ package com.app.core.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.app.core.data.source.local.LocalDataSource
 import com.app.core.data.source.remote.PopularMoviesPagingSource
 import com.app.core.data.source.remote.RemoteDataSource
@@ -29,7 +30,8 @@ class MovieRepositoryImpl @Inject constructor(
         pagingSourceFactory = { PopularMoviesPagingSource(remoteDataSource) }
     ).flow
         .map { movieResponse ->
-            movieResponse.mapSync { response ->
+
+            movieResponse.map { response ->
                 MovieMapper.mapResponseToDomain(response)
             }
         }
@@ -61,7 +63,7 @@ class MovieRepositoryImpl @Inject constructor(
         pagingSourceFactory = { SearchMoviesPagingSource(query, remoteDataSource) }
     ).flow
         .map { movieResponse ->
-            movieResponse.mapSync { response ->
+            movieResponse.map { response ->
                 MovieMapper.mapResponseToDomain(response)
             }
         }.flowOn(IO)

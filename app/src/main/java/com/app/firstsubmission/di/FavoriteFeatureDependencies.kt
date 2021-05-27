@@ -4,10 +4,10 @@ import com.app.core.domain.repository.MovieRepository
 import com.app.core.domain.usecase.favorite_movie.GetFavoriteMoviesUseCase
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 
 @EntryPoint
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 interface FavoriteFeatureDependencies {
 
     fun getMovieRepository(): MovieRepository

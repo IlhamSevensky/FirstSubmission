@@ -1,6 +1,5 @@
 package com.app.firstsubmission.ui.detail
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +9,13 @@ import com.app.core.domain.usecase.detail_movie.GetDetailMovieUseCase
 import com.app.core.domain.usecase.favorite_movie.InsertFavoriteMovieUseCase
 import com.app.core.domain.usecase.favorite_movie.RemoveFavoriteMovieUseCase
 import com.app.core.vo.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class DetailViewModel @Inject constructor(
     private val getDetailMovieUseCase: GetDetailMovieUseCase,
     private val insertFavoriteMovieUseCase: InsertFavoriteMovieUseCase,
     private val removeFavoriteMovieUseCase: RemoveFavoriteMovieUseCase

@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        splitInstallManager = SplitInstallManagerFactory.create(context)
+        splitInstallManager = SplitInstallManagerFactory.create(requireContext())
 
         setupActionBar()
         setupAction()

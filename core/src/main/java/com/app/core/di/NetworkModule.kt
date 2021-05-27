@@ -1,11 +1,12 @@
 package com.app.core.di
 
 import com.app.core.BuildConfig
+import com.app.core.data.source.remote.RemoteDataSource
 import com.app.core.data.source.remote.api.MovieApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +17,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     private const val BASE_URL_TMDB = BuildConfig.BASE_URL_TMDB
@@ -69,5 +70,9 @@ object NetworkModule {
     @Provides
     fun provideMovieApiService(retrofit: Retrofit): MovieApiService =
         retrofit.create(MovieApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRemoteDataSource(movieApiService: MovieApiService) = RemoteDataSource(movieApiService)
 
 }

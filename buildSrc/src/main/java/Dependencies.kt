@@ -6,24 +6,24 @@ object Dependencies {
         const val SUPPORT_LEGACY = "1.0.0"
         const val SUPPORT_LIBRARY = "1.2.0"
         const val CONSTRAINT_LAYOUT = "2.0.1"
-        const val MATERIAL = "1.2.1"
+        const val MATERIAL = "1.3.0"
         const val JUNIT = "4.13"
         const val ANDROID_TEST_JUNIT = "1.1.2"
         const val ANDROID_TEST_ESPRESSO = "3.3.0"
-        const val KTX_CORE = "1.3.1"
-        const val KTX_FRAGMENT = "1.2.5"
-        const val KTX_ACTIVITY = "1.1.0"
-        const val NAVIGATION = "2.3.1"
-        const val COIL = "1.1.1"
-        const val LIFECYCLE = "2.2.0"
-        const val HILT = "1.0.0-alpha02"
-        const val DAGGER_HILT = "2.28-alpha"
-        const val FLOW_BINDING = "1.0.0-alpha04"
-        const val ROOM = "2.2.5"
-        const val PAGING = "3.0.0-alpha08"
+        const val KTX_CORE = "1.5.0"
+        const val KTX_FRAGMENT = "1.3.4"
+        const val KTX_ACTIVITY = "1.2.3"
+        const val NAVIGATION = "2.3.5"
+        const val COIL = "1.2.1"
+        const val LIFECYCLE = "2.3.1"
+        const val HILT = "1.0.0"
+        const val DAGGER_HILT = "2.35"
+        const val FLOW_BINDING = "1.0.0"
+        const val ROOM = "2.3.0"
+        const val PAGING = "3.0.0"
         const val RETROFIT = "2.9.0"
         const val OKHTTP = "4.9.1"
-        const val COROUTINES = "1.3.9"
+        const val COROUTINES = "1.5.0"
         const val LEAK_CANARY = "2.7"
         const val SQL_CIPHER = "4.4.3"
         const val SQLITE_KTX = "2.1.0"
@@ -93,11 +93,9 @@ object Dependencies {
     }
 
     object Lifecycle {
-        const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:${Version.LIFECYCLE}"
         const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.LIFECYCLE}"
         const val LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.LIFECYCLE}"
         const val COMMON = "androidx.lifecycle:lifecycle-common-java8:${Version.LIFECYCLE}"
-        const val EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:${Version.LIFECYCLE}"
     }
 
     object DaggerHilt {
@@ -108,7 +106,6 @@ object Dependencies {
     }
 
     object Hilt {
-        const val VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Version.HILT}"
         const val COMPILER = "androidx.hilt:hilt-compiler:${Version.HILT}"
     }
 

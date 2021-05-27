@@ -2,7 +2,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
-    id(Plugins.KOTLIN_ANDROID_EXTENSIONS)
+    id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.DAGGER_HILT_ANDROID)
     id(Plugins.SAFE_ARGS_KOTLIN)
 }

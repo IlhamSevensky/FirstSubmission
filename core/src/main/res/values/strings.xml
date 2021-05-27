@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="title_favorite">Favorite</string>
+    <string name="title_search" tools:keep="@string/title_search">Search</string>
+    <string name="text_search_movie">Search Movie</string>
+    <string name="text_detail">Detail</string>
+    <string name="text_description">Description</string>
+    <string name="text_release_date">Release Date</string>
+    <string name="error_connection_title">No internet connection</string>
+    <string name="error_connection_desc">Please check your internet connection and try again</string>
+    <string name="error_empty_result_title" tools:keep="@string/error_empty_result_title">Sorry, no result found</string>
+    <string name="error_empty_result_desc" tools:keep="@string/error_empty_result_desc">What your searched was unfortunately not found or does not exist</string>
+    <string name="error_empty_favorite_title" tools:keep="@string/error_empty_favorite_title">No favorites yet!</string>
+    <string name="error_empty_favorite_desc" tools:keep="@string/error_empty_favorite_desc">There is no favorite movies</string>
+    <string name="text_retry">Retry</string>
+    <string name="error_installing_module">Error installing %s module</string>
+</resources>

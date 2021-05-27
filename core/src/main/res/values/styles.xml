@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- SearchView Style -->
+    <style name="SearchViewTextStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Text Style -->
+
+    <style name="TextBold" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/jost_bold</item>
+    </style>
+
+    <style name="TextSemiBold" parent="Widget.AppCompat.TextView" tools:keep="@style/TextSemiBold">
+        <item name="fontFamily">@font/jost_semibold</item>
+    </style>
+
+    <style name="TextRegular" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="TextLight" parent="Widget.AppCompat.TextView" tools:keep="@style/TextLight">
+        <item name="fontFamily">@font/jost_light</item>
+    </style>
+
+    <style name="TextMedium" parent="Widget.AppCompat.TextView" tools:keep="@style/TextMedium">
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="TextBold.Black" parent="TextBold">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextBold.Black.Size_18" parent="TextBold.Black">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextBold.Black.Size_14" parent="TextBold.Black">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextRegular.Grey" parent="TextRegular">
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="TextRegular.Grey.Size_14" parent="TextRegular.Grey">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+</resources>

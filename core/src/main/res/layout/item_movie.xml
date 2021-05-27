@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_rectangle_primary_white_10">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgMoviePoster"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:elevation="8dp"
+        android:scaleType="fitXY"
+        tools:src="@drawable/ic_image_loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieTitle"
+        style="@style/TextBold.Black.Size_18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintBottom_toTopOf="@id/tvMovieDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgMoviePoster"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Data Name" />
+
+    <TextView
+        android:id="@+id/tvMovieDesc"
+        style="@style/TextRegular.Grey.Size_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tvMovieTitle"
+        app:layout_constraintStart_toStartOf="@id/tvMovieTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvMovieTitle"
+        tools:text="Description" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

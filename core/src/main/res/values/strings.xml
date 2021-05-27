@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="title_favorite">Favorite</string>
+    <string name="title_share">Share</string>
     <string name="title_search" tools:keep="@string/title_search">Search</string>
     <string name="text_search_movie">Search Movie</string>
     <string name="text_detail">Detail</string>

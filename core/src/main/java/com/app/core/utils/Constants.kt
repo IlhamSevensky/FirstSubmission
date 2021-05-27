@@ -11,6 +11,8 @@ object Constants {
     const val ENDPOINT_POSTER_SIZE_W185 = "w185"
     const val ENDPOINT_POSTER_SIZE_W780 = "w780"
 
+    const val MIMES_IMAGE = "image/*"
+
     const val FAVORITE_MODULE = "favorite"
     const val SEARCH_MODULE = "search"
 

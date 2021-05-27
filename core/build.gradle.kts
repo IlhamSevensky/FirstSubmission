@@ -28,7 +28,7 @@ android {
         buildConfigField(
             DefaultConfig.FieldType.TYPE_STRING,
             DefaultConfig.FieldKey.BASE_URL_TMDB,
-            "\"https://api.themoviedb.org/\""
+            "\"https://api.themoviedb.org/3/\""
         )
         buildConfigField(
             DefaultConfig.FieldType.TYPE_STRING,

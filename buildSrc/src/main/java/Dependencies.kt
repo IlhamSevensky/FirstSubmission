@@ -28,6 +28,8 @@ object Dependencies {
         const val SQL_CIPHER = "4.4.3"
         const val SQLITE_KTX = "2.1.0"
         const val TIMBER = "4.1.2"
+        const val MOCKITO = "3.10.0"
+        const val MOCKITO_KOTLIN = "3.2.0"
     }
 
     object PerformanceTest {
@@ -67,6 +69,9 @@ object Dependencies {
 
     object Test {
         const val JUNIT = "junit:junit:${Version.JUNIT}"
+        const val MOCKITO = "org.mockito:mockito-core:${Version.MOCKITO}"
+        const val MOCKITO_INLINE = "org.mockito:mockito-inline:${Version.MOCKITO}"
+        const val MOCKITO_KOTLIN = "org.mockito.kotlin:mockito-kotlin:${Version.MOCKITO_KOTLIN}"
     }
 
     object AndroidTest {

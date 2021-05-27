@@ -1,3 +1,6 @@
+# Things to care while using Proguard in Android application
+# https://blog.mindorks.com/things-to-care-while-using-proguard-in-android-application
+
 ##---------------Begin: proguard configuration for Custom Class  ----------
 -keep public class androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment
 

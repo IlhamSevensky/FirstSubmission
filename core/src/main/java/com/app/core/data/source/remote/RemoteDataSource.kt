@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.flowOn
 import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class RemoteDataSource @Inject constructor(private val movieApiService: MovieApiService) {
 

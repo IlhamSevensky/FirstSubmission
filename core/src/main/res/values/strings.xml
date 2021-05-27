@@ -9,6 +9,12 @@
     <string name="text_release_date">Release Date</string>
     <string name="error_connection_title">No internet connection</string>
     <string name="error_connection_desc">Please check your internet connection and try again</string>
+    <string name="error_server_title">Server Error</string>
+    <string name="error_server_desc">Try again later</string>
+    <string name="error_json_title">Parsing Data Error</string>
+    <string name="error_json_desc">Please contact developer instead</string>
+    <string name="error_unknown_title">Unable to fetch data</string>
+    <string name="error_unknown_desc">Try again later or contact developer instead</string>
     <string name="error_empty_result_title" tools:keep="@string/error_empty_result_title">Sorry, no result found</string>
     <string name="error_empty_result_desc" tools:keep="@string/error_empty_result_desc">What your searched was unfortunately not found or does not exist</string>
     <string name="error_empty_favorite_title" tools:keep="@string/error_empty_favorite_title">No favorites yet!</string>

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.core.common.LoadStateAdapter
+import com.app.core.common.PagingInitialState
 import com.app.core.extensions.showToast
 import com.app.core.extensions.throttleFirst
 import com.app.core.extensions.visibleOrGone
@@ -25,8 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import okio.IOException
 import reactivecircus.flowbinding.android.view.clicks
-import timber.log.Timber
+import retrofit2.HttpException
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -37,7 +39,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
 
     private val popularMovieAdapter = MoviePagingAdapter()
-    private lateinit var splitInstallManager : SplitInstallManager
+    private lateinit var splitInstallManager: SplitInstallManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +81,7 @@ class HomeFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbarHome)
     }
 
-    private fun clearViewReference(){
+    private fun clearViewReference() {
         binding.rvPopularMovies.adapter = null
         (activity as AppCompatActivity).setSupportActionBar(null)
     }
@@ -152,7 +154,25 @@ class HomeFragment : Fragment() {
             if (isFirstLoading) binding.emptyState.root.visibleOrGone(false)
 
             val isFirstLoadError = loadState.source.refresh is LoadState.Error
-            shouldShowEmptyState(isFirstLoadError)
+            if (isFirstLoadError) {
+                val error = loadState.source.refresh as LoadState.Error
+                when (error.error) {
+                    is IOException -> shouldShowEmptyState(
+                        true,
+                        PagingInitialState.CONNECTION_ERROR
+                    )
+                    is HttpException -> shouldShowEmptyState(
+                        true,
+                        PagingInitialState.SERVER_ERROR
+                    )
+                    else -> shouldShowEmptyState(
+                        true, 
+                        PagingInitialState.UNKNOWN_ERROR
+                    )
+                }
+            } else {
+                shouldShowEmptyState(false)
+            }
 
         }
     }
@@ -165,22 +185,60 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun configureConnectionErrorEmptyState() {
-        binding.emptyState.apply {
+    private fun setEmptyState(error: PagingInitialState) {
+        var icon = 0
+        var title = ""
+        var desc = ""
+        var shouldShowButton = false
 
-            imgEmptyState.setImageResource(R.drawable.ic_empty_state_no_connection)
-
-            tvEmptyStateTitle.text = resources.getString(R.string.error_connection_title)
-            tvEmptyStateDesc.text = resources.getString(R.string.error_connection_desc)
-
-            btnEmptyState.setOnClickListener {
-                popularMovieAdapter.refresh()
+        when (error) {
+            PagingInitialState.CONNECTION_ERROR -> {
+                icon = R.drawable.ic_empty_state_no_connection
+                title = resources.getString(R.string.error_connection_title)
+                desc = resources.getString(R.string.error_connection_desc)
+                shouldShowButton = true
             }
+
+            PagingInitialState.SERVER_ERROR -> {
+                title = resources.getString(R.string.error_server_title)
+                desc = resources.getString(R.string.error_server_desc)
+                shouldShowButton = true
+            }
+
+            PagingInitialState.UNKNOWN_ERROR -> {
+                title = resources.getString(R.string.error_unknown_title)
+                desc = resources.getString(R.string.error_unknown_desc)
+                shouldShowButton = true
+            }
+
+            PagingInitialState.SEARCH_NOT_FOUND -> {
+                icon = R.drawable.ic_empty_state_not_found
+                title = resources.getString(R.string.error_empty_result_title)
+                desc = resources.getString(R.string.error_empty_result_desc)
+                shouldShowButton = false
+            }
+
+            PagingInitialState.NO_ERROR -> { }
+        }
+
+        val shouldShowIcon = icon != 0
+        binding.emptyState.imgEmptyState.visibleOrGone(shouldShowIcon)
+        binding.emptyState.imgEmptyState.setImageResource(icon)
+
+        binding.emptyState.tvEmptyStateTitle.text = title
+        binding.emptyState.tvEmptyStateDesc.text = desc
+
+        binding.emptyState.btnEmptyState.visibleOrGone(shouldShowButton)
+        binding.emptyState.btnEmptyState.setOnClickListener {
+            popularMovieAdapter.refresh()
         }
     }
 
-    private fun shouldShowEmptyState(show: Boolean) = if (show) {
-        configureConnectionErrorEmptyState()
+    private fun shouldShowEmptyState(
+        show: Boolean,
+        pagingInitialState: PagingInitialState = PagingInitialState.NO_ERROR
+    ) = if (show) {
+        setEmptyState(pagingInitialState)
         binding.emptyState.root.visibleOrGone(true)
         binding.rvPopularMovies.visibleOrGone(false)
     } else {

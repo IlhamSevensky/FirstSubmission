@@ -10,7 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.network.HttpException
 import com.app.core.common.LoadStateAdapter
+import com.app.core.common.PagingInitialState
 import com.app.core.extensions.visibleOrGone
 import com.app.core.ui.MoviePagingAdapter
 import com.app.firstsubmission.R
@@ -24,6 +26,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import okio.IOException
 import reactivecircus.flowbinding.appcompat.queryTextChanges
 import javax.inject.Inject
 
@@ -67,7 +70,7 @@ class SearchFragment : Fragment() {
         doSearchMovie()
     }
 
-    private fun clearViewReference(){
+    private fun clearViewReference() {
         binding.rvSearch.adapter = null
     }
 
@@ -132,59 +135,98 @@ class SearchFragment : Fragment() {
             val isFirstLoading = loadState.source.refresh is LoadState.Loading
             binding.progressBar.root.visibleOrGone(isFirstLoading)
 
-            if (loadState.append.endOfPaginationReached && movieAdapter.itemCount < 1) {
-                showResultNotFoundEmptyState()
-            }
+
 
             if (isFirstLoading) binding.emptyState.root.visibleOrGone(false)
 
             val isFirstLoadError = loadState.source.refresh is LoadState.Error
-            if (isFirstLoadError) showConnectionErrorEmptyState()
+            if (isFirstLoadError) {
+                val error = loadState.source.refresh as LoadState.Error
+                when (error.error) {
+                    is IOException -> shouldShowEmptyState(
+                        true,
+                        PagingInitialState.CONNECTION_ERROR
+                    )
+                    is HttpException -> shouldShowEmptyState(
+                        true,
+                        PagingInitialState.SERVER_ERROR
+                    )
+                    else -> shouldShowEmptyState(
+                        true,
+                        PagingInitialState.UNKNOWN_ERROR
+                    )
+                }
+            } else {
+                if (loadState.append.endOfPaginationReached && movieAdapter.itemCount < 1) {
+                    shouldShowEmptyState(true, PagingInitialState.SEARCH_NOT_FOUND)
+                } else {
+                    shouldShowEmptyState(false)
+                }
+            }
 
         }
     }
 
-    private fun showConnectionErrorEmptyState() {
-        setEmptyState(
-            msgTitle = resources.getString(R.string.error_connection_title),
-            msgDesc = resources.getString(R.string.error_connection_desc),
-            imageResource = R.drawable.ic_empty_state_no_connection,
-            actionButton = { movieAdapter.refresh() }
-        )
-        binding.emptyState.root.visibleOrGone(true)
-    }
+    private fun setEmptyState(error: PagingInitialState) {
+        var icon = 0
+        var title = ""
+        var desc = ""
+        var shouldShowButton = false
 
-    private fun showResultNotFoundEmptyState() {
-        setEmptyState(
-            msgTitle = resources.getString(R.string.error_empty_result_title),
-            msgDesc = resources.getString(R.string.error_empty_result_desc),
-            imageResource = R.drawable.ic_empty_state_not_found
-        )
-        binding.emptyState.root.visibleOrGone(true)
-    }
+        when (error) {
+            PagingInitialState.CONNECTION_ERROR -> {
+                icon = R.drawable.ic_empty_state_no_connection
+                title = resources.getString(R.string.error_connection_title)
+                desc = resources.getString(R.string.error_connection_desc)
+                shouldShowButton = true
+            }
 
-    private fun setEmptyState(
-        msgTitle: String,
-        msgDesc: String,
-        imageResource: Int,
-        actionButton: (() -> Unit)? = null
-    ) {
-        binding.emptyState.apply {
+            PagingInitialState.SERVER_ERROR -> {
+                title = resources.getString(R.string.error_server_title)
+                desc = resources.getString(R.string.error_server_desc)
+                shouldShowButton = true
+            }
 
-            imgEmptyState.setImageResource(imageResource)
-            tvEmptyStateTitle.text = msgTitle
-            tvEmptyStateDesc.text = msgDesc
+            PagingInitialState.UNKNOWN_ERROR -> {
+                title = resources.getString(R.string.error_unknown_title)
+                desc = resources.getString(R.string.error_unknown_desc)
+                shouldShowButton = true
+            }
 
-            actionButton?.let { action ->
-                btnEmptyState.visibleOrGone(true)
-                btnEmptyState.setOnClickListener {
-                    action.invoke()
-                }
+            PagingInitialState.SEARCH_NOT_FOUND -> {
+                icon = R.drawable.ic_empty_state_not_found
+                title = resources.getString(R.string.error_empty_result_title)
+                desc = resources.getString(R.string.error_empty_result_desc)
+                shouldShowButton = false
+            }
 
-            } ?: run {
-                btnEmptyState.visibleOrGone(false)
+            PagingInitialState.NO_ERROR -> {
             }
         }
+
+        val shouldShowIcon = icon != 0
+        binding.emptyState.imgEmptyState.visibleOrGone(shouldShowIcon)
+        binding.emptyState.imgEmptyState.setImageResource(icon)
+
+        binding.emptyState.tvEmptyStateTitle.text = title
+        binding.emptyState.tvEmptyStateDesc.text = desc
+
+        binding.emptyState.btnEmptyState.visibleOrGone(shouldShowButton)
+        binding.emptyState.btnEmptyState.setOnClickListener {
+            movieAdapter.refresh()
+        }
+    }
+
+    private fun shouldShowEmptyState(
+        show: Boolean,
+        pagingInitialState: PagingInitialState = PagingInitialState.NO_ERROR
+    ) = if (show) {
+        setEmptyState(pagingInitialState)
+        binding.emptyState.root.visibleOrGone(true)
+        binding.rvSearch.visibleOrGone(false)
+    } else {
+        binding.emptyState.root.visibleOrGone(false)
+        binding.rvSearch.visibleOrGone(true)
     }
 
     override fun onDestroyView() {

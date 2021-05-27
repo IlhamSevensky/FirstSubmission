@@ -11,7 +11,6 @@ import com.app.core.domain.usecase.search_movie.GetSearchMovieUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,9 +23,9 @@ class SearchViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    private val queryChannel = ConflatedBroadcastChannel<String>()
+    private val queryChannel = MutableSharedFlow<String>()
 
-    val searchResult: LiveData<PagingData<Movie>> = queryChannel.asFlow()
+    val searchResult: LiveData<PagingData<Movie>> = queryChannel.asSharedFlow()
         .debounce(500)
         .distinctUntilChanged()
         .filter { query ->
@@ -41,7 +40,7 @@ class SearchViewModel @Inject constructor(
     fun searchMovie(query: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            queryChannel.send(query)
+            queryChannel.emit(query)
         }
     }
 

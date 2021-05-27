@@ -6,6 +6,7 @@ import com.app.core.utils.Constants.DEFAULT_PAGE_START
 import com.squareup.moshi.JsonDataException
 import okio.IOException
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,12 +29,16 @@ class PopularMoviesPagingSource @Inject constructor(
             )
 
         } catch (e: IOException) {
+            Timber.d("Error IO Exception")
             return LoadResult.Error(e)
         } catch (e: HttpException) {
+            Timber.d("Error Http Exception")
             return LoadResult.Error(e)
         } catch (e: JsonDataException) {
+            Timber.d("Error JsonData Exception")
             return LoadResult.Error(e)
         } catch (e: Exception) {
+            Timber.d("Error what ? : $e")
             return LoadResult.Error(e)
         }
     }

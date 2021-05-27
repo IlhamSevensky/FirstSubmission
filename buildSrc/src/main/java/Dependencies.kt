@@ -27,6 +27,7 @@ object Dependencies {
         const val LEAK_CANARY = "2.7"
         const val SQL_CIPHER = "4.4.3"
         const val SQLITE_KTX = "2.1.0"
+        const val TIMBER = "4.1.2"
     }
 
     object PerformanceTest {
@@ -61,6 +62,8 @@ object Dependencies {
     const val KTX_FRAGMENT = "androidx.fragment:fragment-ktx:${Version.KTX_FRAGMENT}"
 
     const val COIL = "io.coil-kt:coil:${Version.COIL}"
+
+    const val TIMBER = "com.jakewharton.timber:timber:${Version.TIMBER}"
 
     object Test {
         const val JUNIT = "junit:junit:${Version.JUNIT}"

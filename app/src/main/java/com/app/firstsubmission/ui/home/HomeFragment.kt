@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import reactivecircus.flowbinding.android.view.clicks
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {

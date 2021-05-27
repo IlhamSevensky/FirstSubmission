@@ -20,6 +20,7 @@ object DefaultConfig {
         const val TMDB_API_KEY = "TMDB_API_KEY"
         const val BASE_URL_TMDB = "BASE_URL_TMDB"
         const val BASE_URL_IMAGE_TMDB = "BASE_URL_IMAGE_TMDB"
+        const val BASE_URL_TMDB_HOSTNAME = "BASE_URL_TMDB_HOSTNAME"
     }
 
 }

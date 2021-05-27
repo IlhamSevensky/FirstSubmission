@@ -28,12 +28,17 @@ android {
         buildConfigField(
             DefaultConfig.FieldType.TYPE_STRING,
             DefaultConfig.FieldKey.BASE_URL_TMDB,
-            "\"https://api.themoviedb.org/3/\""
+            "\"https://api.themoviedb.org/\""
         )
         buildConfigField(
             DefaultConfig.FieldType.TYPE_STRING,
             DefaultConfig.FieldKey.BASE_URL_IMAGE_TMDB,
             "\"https://image.tmdb.org/t/p/\""
+        )
+        buildConfigField(
+            DefaultConfig.FieldType.TYPE_STRING,
+            DefaultConfig.FieldKey.BASE_URL_TMDB_HOSTNAME,
+            "\"api.themoviedb.org\""
         )
     }
 
@@ -70,6 +75,9 @@ dependencies {
 
     implementation(Dependencies.Retrofit.MAIN)
     implementation(Dependencies.Retrofit.CONVERTER_MOSHI)
+
+    implementation(Dependencies.OKHTTP3.MAIN)
+    implementation(Dependencies.OKHTTP3.LOGGING_INTERCEPTOR)
 
     kapt(Dependencies.Room.COMPILER)
     implementation(Dependencies.Room.RUNTIME)

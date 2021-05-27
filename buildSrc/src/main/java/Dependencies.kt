@@ -22,6 +22,7 @@ object Dependencies {
         const val ROOM = "2.2.5"
         const val PAGING = "3.0.0-alpha08"
         const val RETROFIT = "2.9.0"
+        const val OKHTTP = "4.9.1"
         const val COROUTINES = "1.3.9"
         const val LEAK_CANARY = "2.7"
         const val SQL_CIPHER = "4.4.3"
@@ -113,6 +114,11 @@ object Dependencies {
     object Retrofit {
         const val MAIN = "com.squareup.retrofit2:retrofit:${Version.RETROFIT}"
         const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${Version.RETROFIT}"
+    }
+
+    object OKHTTP3 {
+        const val MAIN = "com.squareup.okhttp3:okhttp:${Version.OKHTTP}"
+        const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Version.OKHTTP}"
     }
 
     object Room {
